@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "cost-optimization"
+version = "0.1.0"
+description = ""
+authors = ["tayssir.fattoumi <tayssir.fattoumi@mssolutions-group.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+pandas = ">=2.2.3,<3.0.0"
+joblib = ">=1.4.2,<2.0.0"
+scikit-learn = ">=1.6.1,<2.0.0"
+crawl4ai = ">=0.5.0.post4,<0.6.0"
+playwright = ">=1.51.0,<2.0.0"
+alembic = ">=1.15.1,<2.0.0"
+sqlalchemy = ">=2.0.39,<3.0.0"
+fastapi = "^0.115.12"
+uvicorn = "^0.34.1"
+pymysql = "^1.1.1"
+pydantic = {extras = ["email"], version = "^2.11.5"}
+litellm = "^1.67.6"
+redis = "^6.0.0"
+transformers = "^4.51.3"
+streamlit = "^1.45.1"
+matplotlib = "^3.10.3"
+plotly = "^6.1.2"
+cachetools = ">=4.0,<6"
+statsmodels = "^0.14.4"
+openai = "^1.92.2"
+faiss-cpu = "^1.11.0.post1"
+html2text = "^2025.4.15"
+pytest-asyncio = "^1.1.0"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.2.0"
+ipykernel = "^6.29.5"
+pylint = "^3.3.6"
+pytest = "^8.3.5"
+pytest-cov = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

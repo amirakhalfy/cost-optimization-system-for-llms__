@@ -1,0 +1,68 @@
+services:
+  db:
+    image: mysql/mysql-server
+    container_name: db
+    ports:
+      - "3204:3306"
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_DATABASE=cost_optimization_db
+      - MYSQL_ROOT_HOST=%  # Allow connections from any host
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=app_password
+    networks:
+      - cost_opt
+    volumes:
+      - database-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+    command: --default-authentication-plugin=mysql_native_password
+
+  app:
+    container_name: app
+    build:
+      context: .
+    ports:
+      - 3206:3206
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=mysql+pymysql://app_user:app_password@db:3306/cost_optimization_db
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/code
+    networks:
+      - cost_opt
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3206/health"]
+      interval: 30s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  web_server:
+    container_name: web_server
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    volumes:
+      - ./static:/static
+    ports:
+      - "3205:3205"
+    depends_on:
+      - app
+    networks:
+      - cost_opt
+
+networks:
+  cost_opt:
+
+volumes:
+  database-data:
