@@ -85,7 +85,7 @@ streamlit-option-menu==0.4.0
 
 ### 1. Clone the Repository
 ```bash
-git clone -b dev --single-branch https://gitlab.com/tayssir.fattoumi/cost_optimization.git
+git clone -b dev --single-branch https://gitlab.com/amira.khalfi/cost_optimization_system-for_llms.git
 cd cost_optimization
 ```
 
